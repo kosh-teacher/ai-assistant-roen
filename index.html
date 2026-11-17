@@ -1,0 +1,1557 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI비서 로엔 | 나만의 금융 파트너</title>
+<style>
+:root{
+  --blue:#5069ed;
+  --dark:#354cce;
+  --light:#edf1ff;
+  --bg:#f5f7fc;
+  --text:#21304a;
+  --muted:#7c899e;
+  --line:#e2e8f2;
+  --green:#0b9d78;
+  --red:#e75770;
+  --gold:#d39523;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Pretendard","Malgun Gothic",Arial,sans-serif;
+  line-height:1.6;
+}
+button,input,select{font:inherit}
+button{cursor:pointer;transition:.2s}
+button:hover:not(:disabled){filter:brightness(.95)}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.55;cursor:not-allowed}
+button:focus-visible,input:focus-visible{
+  outline:3px solid #9fb4ff;
+  outline-offset:2px;
+}
+header{
+  background:white;
+  border-bottom:1px solid var(--line);
+}
+.header{
+  max-width:1150px;
+  padding:18px 20px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.logo{
+  font-size:22px;
+  font-weight:900;
+  color:var(--blue);
+}
+.logo span{color:#a077ee}
+.tag{
+  background:var(--light);
+  color:var(--blue);
+  border-radius:30px;
+  padding:6px 12px;
+  font-size:12px;
+  font-weight:800;
+}
+main{
+  max-width:1150px;
+  padding:28px 17px 60px;
+  margin:auto;
+}
+h1{
+  font-size:clamp(25px,4vw,32px);
+  margin:0;
+  letter-spacing:-1px;
+}
+h2{font-size:19px;margin:0 0 6px}
+h3{font-size:15px;margin:0 0 9px}
+p{margin:7px 0}
+.sub{color:var(--muted);font-size:13px}
+.intro{margin-bottom:23px}
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+.welcome{
+  background:linear-gradient(120deg,#4d65e5,#8776f3);
+  color:white;
+  padding:28px;
+  border-radius:21px;
+}
+.welcome h2{font-size:25px}
+.welcome p{
+  font-size:14px;
+  opacity:.92;
+}
+.welcome .stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:24px;
+}
+.welcome .stat{
+  background:#ffffff22;
+  padding:13px;
+  border-radius:12px;
+}
+.stat span{
+  display:block;
+  font-size:11px;
+  opacity:.88;
+}
+.stat strong{
+  display:block;
+  margin-top:6px;
+  font-size:clamp(15px,2vw,21px);
+  overflow-wrap:anywhere;
+}
+.character{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:23px;
+  text-align:center;
+}
+.face{
+  font-size:76px;
+  animation:bob 2.5s ease-in-out infinite;
+}
+@keyframes bob{
+  50%{transform:translateY(-8px)}
+}
+.character strong{
+  display:block;
+  font-size:19px;
+  color:var(--blue);
+}
+.character p{
+  font-size:12px;
+  color:var(--muted);
+}
+.level{
+  color:var(--gold);
+  font-weight:900;
+  font-size:13px;
+  margin:7px 0;
+}
+.progress{
+  height:12px;
+  background:#e7eafa;
+  border-radius:30px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.progress>div{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#6478ee,#b18afa);
+  border-radius:30px;
+  transition:width .4s;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:18px;
+}
+.stack{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:24px;
+  box-shadow:0 5px 17px #21304a08;
+}
+.card-sub{
+  font-size:12px;
+  color:var(--muted);
+  margin:0 0 20px;
+}
+.field{margin:15px 0}
+label{
+  display:block;
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+input,select{
+  width:100%;
+  min-width:0;
+  padding:12px 13px;
+  border-radius:11px;
+  border:1px solid #d5deec;
+  background:white;
+  color:var(--text);
+}
+input:focus{
+  outline:none;
+  border-color:var(--blue);
+}
+.two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.primary{
+  border:0;
+  background:var(--blue);
+  color:white;
+  border-radius:12px;
+  padding:14px 18px;
+  font-weight:850;
+}
+.primary.full{width:100%}
+.secondary{
+  border:1px solid #cdd8ed;
+  border-radius:10px;
+  padding:11px 15px;
+  background:white;
+  color:var(--blue);
+  font-weight:800;
+  font-size:13px;
+}
+.error{
+  color:var(--red);
+  font-size:12px;
+  min-height:16px;
+  margin:7px 0;
+}
+.input-row{
+  display:grid;
+  grid-template-columns:1fr 130px;
+  gap:12px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid #f0f2f8;
+}
+.input-row:last-child{border:0}
+.input-row label{margin:0}
+.input-row input{text-align:right}
+.result-highlight{
+  background:#f1f4ff;
+  border-radius:15px;
+  padding:19px;
+  margin:15px 0;
+}
+.result-highlight span{
+  font-size:12px;
+  font-weight:800;
+  color:#5969a0;
+}
+.result-highlight strong{
+  display:block;
+  font-size:29px;
+  color:var(--blue);
+  margin-top:6px;
+}
+.chart-row{margin:17px 0}
+.chart-label{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:13px;
+}
+.chart-label strong{white-space:nowrap}
+.track{
+  height:9px;
+  background:#eef1f7;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.track div{
+  height:100%;
+  background:var(--blue);
+  border-radius:20px;
+}
+.tip{
+  display:flex;
+  gap:11px;
+  background:#f3f5ff;
+  padding:16px;
+  border-radius:13px;
+  margin:10px 0;
+}
+.tip .emoji{font-size:25px}
+.tip strong{font-size:13px}
+.tip p{font-size:12px;color:#69758d;margin:5px 0 0}
+.health{
+  background:#eaf8f3;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+}
+.health strong{
+  color:var(--green);
+  font-size:35px;
+}
+.health p{font-size:12px;color:#47816e}
+.goal-number{
+  text-align:center;
+  color:var(--blue);
+  font-size:25px;
+  font-weight:900;
+  margin:16px 0;
+}
+.goal-info{
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+}
+.alert{
+  padding:14px;
+  border-radius:12px;
+  background:#fff1f3;
+  border-left:4px solid var(--red);
+  font-size:13px;
+  margin:10px 0;
+}
+.alert.good{
+  background:#e9faf4;
+  border-color:var(--green);
+}
+.mission{
+  border:1px solid #dedafa;
+  background:linear-gradient(130deg,#f1eeff,#fff1f8);
+  padding:20px;
+  border-radius:15px;
+}
+.mission h3{font-size:18px}
+.mission p{font-size:13px;color:#655e83}
+.reward{
+  display:inline-block;
+  color:#a97b16;
+  background:white;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:900;
+}
+.badge{
+  display:inline-block;
+  background:#fff0c8;
+  border-radius:20px;
+  padding:6px 11px;
+  color:#9b6c12;
+  font-size:12px;
+  font-weight:800;
+  margin-top:7px;
+}
+.chat{
+  height:265px;
+  overflow:auto;
+  border:1px solid var(--line);
+  background:#f8f9fd;
+  border-radius:14px;
+  padding:14px;
+  margin:15px 0;
+}
+.bubble{
+  width:fit-content;
+  max-width:90%;
+  margin:9px 0;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:11px 13px;
+  font-size:13px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.bubble.mine{
+  margin-left:auto;
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
+}
+.chat-input{display:flex;gap:8px}
+.chat-input input{flex:1}
+.chat-input button{
+  background:var(--blue);
+  color:white;
+  border:0;
+  border-radius:10px;
+  padding:10px 16px;
+  font-weight:800;
+}
+.examples{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+.examples button{
+  background:var(--light);
+  border:1px solid #d9ddff;
+  color:#4e52b5;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:11px;
+}
+.notice{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:25px;
+}
+.popup{
+  position:fixed;
+  inset:0;
+  background:#17244888;
+  z-index:30;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.popup.show{display:flex}
+.popup-card{
+  background:white;
+  padding:28px;
+  border-radius:21px;
+  max-width:410px;
+  width:100%;
+  text-align:center;
+}
+.popup-emoji{font-size:65px}
+.popup-card h2{font-size:25px}
+.popup-card p{font-size:14px;color:var(--muted)}
+@media(max-width:850px){
+  .hero,.grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  main{padding:20px 12px 42px}
+  .card{padding:18px}
+  .welcome{padding:21px}
+  .welcome .stats{gap:6px}
+  .welcome .stat{padding:9px}
+  .two{grid-template-columns:1fr;gap:0}
+  .input-row{grid-template-columns:1fr 112px}
+  .logo{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header">
+    <div class="logo">🤖 AI비서 <span>로엔</span></div>
+    <div class="tag">나만의 금융 파트너</div>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <h1>안녕하세요! 로엔입니다 👋</h1>
+    <p class="sub">
+      사회 초년생의 첫 자산관리, 저와 함께 시작해 볼까요?
+    </p>
+  </div>
+
+  <div class="hero">
+    <div class="welcome">
+      <h2>💜 오늘도 돈 관리, 로엔과 함께!</h2>
+      <p>
+        소비·소득·자산을 한눈에 분석하고<br>
+        나에게 맞는 저축 방법을 찾아보세요.
+      </p>
+      <div class="stats">
+        <div class="stat">
+          <span>월 소득</span>
+          <strong id="incomeStat">0원</strong>
+        </div>
+        <div class="stat">
+          <span>월 지출</span>
+          <strong id="expenseStat">0원</strong>
+        </div>
+        <div class="stat">
+          <span>순자산</span>
+          <strong id="assetStat">0원</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="character">
+      <div class="face" id="face">🥚</div>
+      <strong id="characterName">새싹 금융비서 로엔</strong>
+      <div class="level" id="characterLevel">LV.1</div>
+      <div class="progress"><div id="characterProgress"></div></div>
+      <p id="characterText">
+        절약 미션을 완료하면 제가 성장해요!
+      </p>
+      <div id="badgeArea"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="stack">
+      <!-- 금융정보 입력 -->
+      <section class="card">
+        <h2>📝 나의 금융정보 입력</h2>
+        <p class="card-sub">
+          현재 금융 상황을 입력하면 로엔이 분석해 드려요.
+        </p>
+
+        <div class="two">
+          <div class="field">
+            <label for="income">월 소득 (원)</label>
+            <input type="number" id="income"
+                   min="0" step="1000" value="2500000">
+          </div>
+          <div class="field">
+            <label for="budget">월 소비 예산 (원)</label>
+            <input type="number" id="budget"
+                   min="1" step="1000" value="1800000">
+          </div>
+        </div>
+
+        <h3>이번 달 소비 내역</h3>
+        <p class="sub">
+          카드와 계좌 지출을 항목별로 합산하여 입력하세요.
+        </p>
+        <div id="expenseInputs"></div>
+
+        <h3 style="margin-top:22px">나의 보유 자산</h3>
+        <div class="two">
+          <div class="field">
+            <label for="cash">예금·현금 (원)</label>
+            <input id="cash" type="number"
+                   min="0" step="1000" value="3000000">
+          </div>
+          <div class="field">
+            <label for="investments">투자 자산 (원)</label>
+            <input id="investments" type="number"
+                   min="0" step="1000" value="1000000">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="debt">대출·부채 잔액 (원)</label>
+          <input id="debt" type="number"
+                 min="0" step="1000" value="500000">
+        </div>
+
+        <h3 style="margin-top:22px">저축 목표</h3>
+        <div class="field">
+          <label for="goalName">목표 이름</label>
+          <input id="goalName" type="text"
+                 maxlength="30" value="비상금 만들기">
+        </div>
+
+        <div class="field">
+          <label for="goalAmount">목표 금액 (원)</label>
+          <input id="goalAmount" type="number"
+                 min="1" step="1000" value="5000000">
+        </div>
+
+        <button class="primary full" onclick="analyze()">
+          ✨ 로엔 AI 금융 분석하기
+        </button>
+        <div class="error" id="inputError" role="alert"></div>
+      </section>
+
+      <!-- 소비분석 -->
+      <section class="card">
+        <h2>📊 소비 패턴 분석</h2>
+        <p class="card-sub">
+          어디에 돈을 가장 많이 쓰고 있는지 확인해 보세요.
+        </p>
+
+        <div id="chart"></div>
+
+        <div class="result-highlight">
+          <span>💡 이번 달 예상 절약 가능 금액</span>
+          <strong id="savingPotential">0원</strong>
+          <p class="sub" id="savingExplanation"></p>
+        </div>
+      </section>
+
+      <!-- 개인별 조언 -->
+      <section class="card">
+        <h2>🧠 로엔의 맞춤 금융 솔루션</h2>
+        <p class="card-sub">
+          현재 소비 상황과 금융 목표에 맞는 조언입니다.
+        </p>
+        <div id="coaching"></div>
+      </section>
+
+      <!-- 절약 미션 -->
+      <section class="card">
+        <h2>🎯 로엔의 절약 챌린지</h2>
+        <p class="card-sub">
+          절약을 실천하고 캐릭터를 성장시켜 보세요!
+        </p>
+
+        <div class="mission">
+          <span class="reward">🏅 성공 보상 +200 포인트</span>
+          <h3 id="missionTitle" style="margin-top:14px">
+            소비 줄이기 미션
+          </h3>
+          <p id="missionDesc"></p>
+
+          <div class="progress">
+            <div id="missionProgress"></div>
+          </div>
+
+          <p id="missionStatus"></p>
+
+          <button class="primary full"
+                  id="missionButton"
+                  onclick="completeMission()">
+            ✅ 절약 실천 완료!
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="stack">
+      <!-- 금융 건강 점수 -->
+      <section class="card">
+        <h2>💚 나의 금융 건강 점수</h2>
+        <p class="card-sub">
+          현재 소득·지출·부채를 토대로 계산한 교육용 점수입니다.
+        </p>
+
+        <div class="health">
+          <strong id="healthScore">0점</strong>
+          <div class="progress">
+            <div id="healthBar"></div>
+          </div>
+          <p id="healthMessage"></p>
+        </div>
+      </section>
+
+      <!-- 자산현황 -->
+      <section class="card">
+        <h2>💰 나의 자산 현황</h2>
+        <div id="assetDetails"></div>
+      </section>
+
+      <!-- 저축계획 -->
+      <section class="card">
+        <h2>🏦 나의 저축 계획</h2>
+        <p class="card-sub">
+          목표 금액까지 차근차근 모아 보세요.
+        </p>
+
+        <h3 id="goalTitle" style="text-align:center"></h3>
+        <div class="goal-number" id="goalProgressText"></div>
+        <div class="progress">
+          <div id="goalProgressBar"></div>
+        </div>
+        <div class="goal-info" id="goalPercent"></div>
+
+        <div class="tip">
+          <div class="emoji">💡</div>
+          <div>
+            <strong>로엔의 추천 저축 계획</strong>
+            <p id="goalAdvice"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="deposit">가상 저축 금액 (원)</label>
+          <input id="deposit" type="number"
+                 min="1" step="1000"
+                 placeholder="예: 100000">
+        </div>
+
+        <button class="primary full" onclick="saveMoney()">
+          💸 저축 기록 추가하기
+        </button>
+        <div class="error" id="savingError" role="alert"></div>
+
+        <p class="sub">
+          실제 은행 이체가 아닌 저축 실천 기록입니다.
+        </p>
+      </section>
+
+      <!-- 알림 -->
+      <section class="card">
+        <h2>🔔 로엔의 금융 알림</h2>
+        <div id="alerts"></div>
+      </section>
+
+      <!-- AI 비서 -->
+      <section class="card">
+        <h2>💬 로엔 AI비서와 대화하기</h2>
+        <p class="card-sub">
+          내 금융 상황에 대해 자유롭게 질문해 보세요.
+        </p>
+
+        <div class="chat" id="chat" role="log"
+             aria-live="polite">
+          <div class="bubble">
+            안녕하세요! 저는 금융비서 로엔이에요. 🤖
+            저축, 소비, 자산, 예산이 궁금하면 물어보세요!
+          </div>
+        </div>
+
+        <div class="examples">
+          <button onclick="ask('얼마나 저축하면 좋을까?')">
+            💰 저축 추천
+          </button>
+          <button onclick="ask('소비를 줄이는 방법 알려줘')">
+            💸 소비 줄이기
+          </button>
+          <button onclick="ask('내 순자산은 얼마야?')">
+            📊 자산 분석
+          </button>
+          <button onclick="ask('빚을 어떻게 관리할까?')">
+            🏦 부채 관리
+          </button>
+        </div>
+
+        <div class="chat-input">
+          <input id="question" maxlength="150"
+                 placeholder="로엔에게 질문하기"
+                 aria-label="금융 질문">
+          <button onclick="sendQuestion()">전송</button>
+        </div>
+
+        <p class="sub">
+          로엔은 외부 생성형 AI 대신 규칙 기반으로 응답합니다.
+        </p>
+      </section>
+
+      <button class="secondary" onclick="resetDemo()">
+        🔄 모든 시연 데이터 초기화
+      </button>
+    </div>
+  </div>
+
+  <p class="notice">
+    AI비서 로엔은 해커톤 금융교육 서비스입니다.<br>
+    실제 계좌·마이데이터·생성형 AI와 연결되지 않습니다.
+    입력한 정보는 현재 브라우저에 저장됩니다.
+  </p>
+</main>
+
+<div class="popup" id="popup">
+  <div class="popup-card" role="dialog"
+       aria-modal="true" aria-labelledby="popupTitle">
+    <div class="popup-emoji" id="popupEmoji">🎉</div>
+    <h2 id="popupTitle"></h2>
+    <p id="popupMessage"></p>
+    <button class="primary full" onclick="closePopup()">
+      확인했어요!
+    </button>
+  </div>
+</div>
+
+<script>
+// AI비서 로엔
+// HTML + CSS + JavaScript 단일 파일
+// 외부 라이브러리, API, 서버, 데이터베이스 사용 안 함
+
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = "roen_finance_demo_v1";
+
+const categoryInfo = [
+  ["housing","🏠 주거·생활비"],
+  ["food","🍚 식비"],
+  ["delivery","🍕 배달음식"],
+  ["cafe","☕ 카페·간식"],
+  ["shopping","🛍️ 쇼핑"],
+  ["transport","🚌 교통비"],
+  ["other","📦 기타"]
+];
+
+const defaults = {
+  income:2500000,
+  budget:1800000,
+  expenses:{
+    housing:500000,
+    food:350000,
+    delivery:200000,
+    cafe:180000,
+    shopping:220000,
+    transport:150000,
+    other:200000
+  },
+  cash:3000000,
+  investments:1000000,
+  debt:500000,
+  goalName:"비상금 만들기",
+  goalAmount:5000000,
+  saved:0,
+  points:0,
+  missionDone:false,
+  missionBaseline:200000
+};
+
+function freshData(){
+  return JSON.parse(JSON.stringify(defaults));
+}
+
+let data=freshData();
+
+function validStored(d){
+  return d && typeof d==="object" &&
+    ["income","budget","cash","investments","debt",
+     "goalAmount","saved","points","missionBaseline"]
+      .every(k=>Number.isSafeInteger(d[k]) && d[k]>=0) &&
+    d.budget>0 && d.goalAmount>0 &&
+    typeof d.goalName==="string" &&
+    typeof d.missionDone==="boolean" &&
+    d.expenses &&
+    categoryInfo.every(([id])=>
+      Number.isSafeInteger(d.expenses[id]) &&
+      d.expenses[id]>=0);
+}
+
+try{
+  const stored=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if(validStored(stored))data=stored;
+}catch(e){}
+
+function won(n){
+  return Math.round(n).toLocaleString("ko-KR")+"원";
+}
+
+function compact(n){
+  return (n/10000).toLocaleString("ko-KR",{
+    maximumFractionDigits:1
+  })+"만원";
+}
+
+function percent(n){
+  return Math.max(0,Math.min(100,n));
+}
+
+function totalSpent(){
+  return Object.values(data.expenses)
+    .reduce((sum,n)=>sum+n,0);
+}
+
+function netAssets(){
+  return data.cash+data.investments-data.debt;
+}
+
+function availableSaving(){
+  return Math.max(0,data.income-totalSpent());
+}
+
+function savingPotential(){
+  // 교육용 감축률 가정
+  return Math.round((
+    data.expenses.delivery*.15+
+    data.expenses.cafe*.20+
+    data.expenses.shopping*.15
+  )/1000)*1000;
+}
+
+function store(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  }catch(e){
+    // 저장을 차단한 브라우저에서는 현재 화면에서만 유지
+  }
+}
+
+function createExpenseInputs(){
+  const box=$("expenseInputs");
+  box.innerHTML="";
+
+  categoryInfo.forEach(([id,name])=>{
+    const row=document.createElement("div");
+    row.className="input-row";
+
+    const label=document.createElement("label");
+    label.htmlFor="exp_"+id;
+    label.textContent=name;
+
+    const input=document.createElement("input");
+    input.type="number";
+    input.min="0";
+    input.step="1000";
+    input.id="exp_"+id;
+
+    row.append(label,input);
+    box.appendChild(row);
+  });
+}
+
+function loadInputs(){
+  for(const id of [
+    "income","budget","cash","investments","debt",
+    "goalName","goalAmount"
+  ]){
+    $(id).value=data[id];
+  }
+
+  categoryInfo.forEach(([id])=>{
+    $("exp_"+id).value=data.expenses[id];
+  });
+}
+
+function readNumber(id,allowZero=true){
+  const raw=$(id).value.trim();
+  if(!raw)return NaN;
+  const n=Number(raw);
+
+  if(!Number.isSafeInteger(n))return NaN;
+  if(allowZero?n<0:n<=0)return NaN;
+
+  return n;
+}
+
+function readInputs(){
+  const next={
+    ...data,
+    expenses:{}
+  };
+
+  for(const id of [
+    "income","budget","cash","investments","debt"
+  ]){
+    next[id]=readNumber(id,id!=="budget");
+  }
+
+  next.goalName=$("goalName").value.trim();
+  next.goalAmount=readNumber("goalAmount",false);
+
+  for(const [id] of categoryInfo){
+    next.expenses[id]=readNumber("exp_"+id);
+  }
+
+  const numbers=[
+    next.income,next.budget,next.cash,
+    next.investments,next.debt,next.goalAmount,
+    ...Object.values(next.expenses)
+  ];
+
+  if(numbers.some(n=>!Number.isFinite(n)) ||
+     !next.goalName){
+    $("inputError").textContent=
+      "모든 금액을 올바르게 입력해 주세요. "+
+      "소득과 지출은 0원부터 입력할 수 있습니다.";
+    return false;
+  }
+
+  const total=Object.values(next.expenses)
+    .reduce((sum,n)=>sum+n,0);
+
+  if(!Number.isSafeInteger(total) ||
+     !Number.isSafeInteger(
+       next.cash+next.investments
+     )){
+    $("inputError").textContent=
+      "입력 금액이 너무 큽니다. 금액을 줄여 주세요.";
+    return false;
+  }
+
+  if(next.goalAmount<next.saved){
+    $("inputError").textContent=
+      "저축 목표는 이미 저축한 금액 이상이어야 합니다.";
+    return false;
+  }
+
+  // 미션을 완료하지 않았다면 첫 분석의 배달 지출을 기준으로 함
+  if(!next.missionDone && next.missionBaseline===undefined){
+    next.missionBaseline=next.expenses.delivery;
+  }
+
+  $("inputError").textContent="";
+  data=next;
+  return true;
+}
+
+function analyze(){
+  if(!readInputs())return;
+
+  store();
+  renderAll();
+
+  popup(
+    "🤖✨",
+    "금융 분석 완료!",
+    "로엔이 소비 패턴과 자산 현황을 분석했습니다. "+
+    "아래에서 맞춤형 절약 방법과 저축 계획을 확인하세요."
+  );
+}
+
+function renderAll(){
+  renderDashboard();
+  renderCharacter();
+  renderChart();
+  renderAssets();
+  renderHealth();
+  renderGoal();
+  renderCoaching();
+  renderAlerts();
+  renderMission();
+}
+
+function renderDashboard(){
+  $("incomeStat").textContent=compact(data.income);
+  $("expenseStat").textContent=compact(totalSpent());
+  $("assetStat").textContent=compact(netAssets());
+}
+
+function renderCharacter(){
+  if(data.missionDone){
+    $("face").textContent="🦊";
+    $("characterName").textContent="똑똑한 금융비서 로엔";
+    $("characterLevel").textContent="LV.2";
+    $("characterProgress").style.width="70%";
+    $("characterText").textContent=
+      "멋져요! 절약 습관이 로엔을 성장시켰어요!";
+    $("badgeArea").innerHTML=
+      '<span class="badge">🏅 절약 성공 배지</span>';
+  }else{
+    $("face").textContent="🥚";
+    $("characterName").textContent="새싹 금융비서 로엔";
+    $("characterLevel").textContent="LV.1";
+    $("characterProgress").style.width="20%";
+    $("characterText").textContent=
+      "절약 미션을 완료하면 제가 성장해요!";
+    $("badgeArea").innerHTML="";
+  }
+}
+
+function renderChart(){
+  const box=$("chart");
+  box.innerHTML="";
+  const total=totalSpent();
+
+  categoryInfo.forEach(([id,name])=>{
+    const amount=data.expenses[id];
+    const ratio=total?amount/total*100:0;
+
+    const row=document.createElement("div");
+    row.className="chart-row";
+
+    const label=document.createElement("div");
+    label.className="chart-label";
+
+    const title=document.createElement("span");
+    title.textContent=name;
+
+    const value=document.createElement("strong");
+    value.textContent=
+      won(amount)+" ("+ratio.toFixed(1)+"%)";
+
+    label.append(title,value);
+
+    const track=document.createElement("div");
+    track.className="track";
+    const fill=document.createElement("div");
+    fill.style.width=percent(ratio)+"%";
+
+    track.appendChild(fill);
+    row.append(label,track);
+    box.appendChild(row);
+  });
+
+  $("savingPotential").textContent=won(savingPotential());
+  $("savingExplanation").textContent=
+    "배달음식 15%, 카페·간식 20%, 쇼핑 15%를 "+
+    "줄인다고 가정하여 계산한 예상 절약액입니다.";
+}
+
+function renderAssets(){
+  const items=[
+    ["예금·현금",data.cash],
+    ["투자 자산",data.investments],
+    ["대출·부채",-data.debt],
+    ["순자산",netAssets()]
+  ];
+
+  const box=$("assetDetails");
+  box.innerHTML="";
+
+  items.forEach(([name,amount])=>{
+    const row=document.createElement("div");
+    row.className="chart-label";
+    row.style.padding="12px 0";
+    row.style.borderBottom="1px solid #edf0f6";
+
+    const left=document.createElement("span");
+    left.textContent=name;
+
+    const right=document.createElement("strong");
+    right.textContent=won(amount);
+
+    if(name==="순자산"){
+      right.style.color="var(--blue)";
+      right.style.fontSize="19px";
+    }
+
+    row.append(left,right);
+    box.appendChild(row);
+  });
+}
+
+function healthScore(){
+  let score=50;
+  const spent=totalSpent();
+
+  if(data.income>0){
+    const ratio=spent/data.income;
+
+    if(ratio<=.5)score+=25;
+    else if(ratio<=.7)score+=20;
+    else if(ratio<=.9)score+=10;
+    else if(ratio>1)score-=20;
+  }else if(spent>0){
+    score-=25;
+  }
+
+  const assets=data.cash+data.investments;
+
+  if(assets>0){
+    if(data.debt<=assets*.2)score+=15;
+    else if(data.debt<=assets*.5)score+=5;
+    else if(data.debt>assets)score-=15;
+  }else if(data.debt>0){
+    score-=20;
+  }
+
+  if(data.cash>=spent*3 && spent>0)score+=10;
+
+  return percent(score);
+}
+
+function renderHealth(){
+  const score=healthScore();
+
+  $("healthScore").textContent=score+"점";
+  $("healthBar").style.width=score+"%";
+
+  let message="";
+
+  if(score>=85){
+    message="좋은 금융 관리 상태예요! 현재 습관을 유지해 보세요.";
+  }else if(score>=65){
+    message="양호한 상태예요. 지출과 비상금을 점검해 보세요.";
+  }else{
+    message="소비·부채 계획을 개선하면 점수를 높일 수 있어요.";
+  }
+
+  $("healthMessage").textContent=message;
+}
+
+function renderGoal(){
+  const progress=data.saved/data.goalAmount*100;
+  const remain=Math.max(0,data.goalAmount-data.saved);
+  const monthly=availableSaving();
+
+  $("goalTitle").textContent=data.goalName;
+  $("goalProgressText").textContent=
+    won(data.saved)+" / "+won(data.goalAmount);
+  $("goalProgressBar").style.width=percent(progress)+"%";
+  $("goalPercent").textContent=
+    progress.toFixed(1)+"% 달성";
+
+  if(remain===0){
+    $("goalAdvice").textContent=
+      "🎉 저축 목표를 달성했어요!";
+  }else if(monthly>0){
+    const months=Math.ceil(remain/monthly);
+    $("goalAdvice").textContent=
+      "현재 월 소득에서 지출을 뺀 저축 여력은 "+
+      won(monthly)+"입니다. 같은 계획을 유지하면 "+
+      "약 "+months+"개월 동안 목표를 모을 수 있어요.";
+  }else{
+    $("goalAdvice").textContent=
+      "현재 지출 계획에서는 저축 여력이 부족합니다. "+
+      "불필요한 지출을 먼저 점검하세요.";
+  }
+}
+
+function saveMoney(){
+  const raw=$("deposit").value.trim();
+  const amount=Number(raw);
+  $("savingError").textContent="";
+
+  if(!raw || !Number.isSafeInteger(amount) || amount<=0){
+    $("savingError").textContent=
+      "저축 금액은 1원 이상의 정수로 입력해 주세요.";
+    return;
+  }
+
+  const remain=data.goalAmount-data.saved;
+
+  if(amount>remain){
+    $("savingError").textContent=
+      "남은 저축 목표 "+won(remain)+
+      "을 초과할 수 없습니다.";
+    return;
+  }
+
+  // 본 기능은 가상 저축 실천 기록으로,
+  // 기존 자산·계좌 금액을 자동 차감하지 않습니다.
+  data.saved+=amount;
+  $("deposit").value="";
+  store();
+  renderAll();
+
+  if(data.saved>=data.goalAmount){
+    popup(
+      "🏆",
+      "저축 목표 달성!",
+      data.goalName+" 목표 금액 "+
+      won(data.goalAmount)+"을 모두 모았어요!"
+    );
+  }else{
+    popup(
+      "💰",
+      "저축 기록 완료!",
+      won(amount)+"을 저축한 것으로 기록했어요. "+
+      "목표 달성 게이지가 상승했습니다!"
+    );
+  }
+}
+
+function renderCoaching(){
+  const tips=[];
+  const e=data.expenses;
+  const spent=totalSpent();
+
+  if(spent>data.income){
+    tips.push([
+      "🚨",
+      "소득보다 많은 지출",
+      "현재 월 지출이 소득을 초과해요. "+
+      "필수 지출을 확인하고 선택 소비부터 줄여 보세요."
+    ]);
+  }
+
+  if(e.delivery>=150000){
+    tips.push([
+      "🍕",
+      "배달음식 지출 점검",
+      "배달음식 지출이 "+won(e.delivery)+"이에요. "+
+      "직접 요리하는 날을 정하면 절약에 도움이 됩니다."
+    ]);
+  }
+
+  if(e.cafe>=100000){
+    tips.push([
+      "☕",
+      "카페·간식 절약",
+      "카페·간식 지출 "+won(e.cafe)+
+      "을 일부 줄여 저축 목표에 보태 보세요."
+    ]);
+  }
+
+  if(e.shopping>=150000){
+    tips.push([
+      "🛍️",
+      "충동구매 예방",
+      "쇼핑 전에 24시간 기다리고 "+
+      "가격을 비교하는 습관을 추천해요."
+    ]);
+  }
+
+  if(data.debt>data.cash+data.investments){
+    tips.push([
+      "🏦",
+      "부채 관리",
+      "부채가 보유 금융자산보다 많아요. "+
+      "대출 금리와 상환 일정을 확인해 보세요."
+    ]);
+  }
+
+  if(data.cash<spent*3){
+    tips.push([
+      "🛟",
+      "비상금 준비",
+      "갑작스러운 지출에 대비해 "+
+      "생활비 3개월분 정도의 비상금 마련을 검토해 보세요."
+    ]);
+  }
+
+  if(tips.length===0){
+    tips.push([
+      "🌱",
+      "좋은 금융 습관",
+      "현재 계획을 유지하면서 "+
+      "매달 저축과 소비 내역을 점검하세요."
+    ]);
+  }
+
+  const box=$("coaching");
+  box.innerHTML="";
+
+  tips.slice(0,5).forEach(([emoji,title,message])=>{
+    const div=document.createElement("div");
+    div.className="tip";
+
+    const icon=document.createElement("div");
+    icon.className="emoji";
+    icon.textContent=emoji;
+
+    const content=document.createElement("div");
+    const strong=document.createElement("strong");
+    strong.textContent=title;
+
+    const p=document.createElement("p");
+    p.textContent=message;
+
+    content.append(strong,p);
+    div.append(icon,content);
+    box.appendChild(div);
+  });
+}
+
+function renderAlerts(){
+  const notices=[];
+  const spent=totalSpent();
+
+  if(spent>data.budget){
+    notices.push([
+      "🚨 월 소비 예산을 "+
+      won(spent-data.budget)+" 초과했습니다.",false
+    ]);
+  }else{
+    notices.push([
+      "✅ 현재 지출은 월 소비 예산 범위 안에 있습니다.",true
+    ]);
+  }
+
+  if(spent>data.income){
+    notices.push([
+      "⚠️ 월 지출이 소득을 초과했습니다.",false
+    ]);
+  }
+
+  if(data.missionDone){
+    notices.push([
+      "🏅 절약 미션 성공! 200포인트 획득!",true
+    ]);
+  }
+
+  const box=$("alerts");
+  box.innerHTML="";
+
+  notices.forEach(([message,good])=>{
+    const div=document.createElement("div");
+    div.className="alert"+(good?" good":"");
+    div.textContent=message;
+    box.appendChild(div);
+  });
+}
+
+function renderMission(){
+  const baseline=data.missionBaseline;
+  const target=Math.max(0,baseline-20000);
+  const current=data.expenses.delivery;
+  const reduction=Math.max(0,baseline-current);
+
+  const progress=percent(reduction/20000*100);
+
+  $("missionTitle").textContent=
+    "🍕 배달음식 소비 2만 원 줄이기";
+
+  $("missionDesc").textContent=
+    "현재 계획의 기준 금액 "+won(baseline)+
+    "에서 "+won(target)+" 이하로 줄여 보세요.";
+
+  $("missionProgress").style.width=
+    data.missionDone?"100%":progress+"%";
+
+  $("missionStatus").textContent=data.missionDone
+    ?"✅ 절약 계획 미션 성공!"
+    :"현재 지출 계획: "+won(current)+
+     " / 절약 계획: "+won(reduction);
+
+  $("missionButton").disabled=data.missionDone;
+  $("missionButton").textContent=data.missionDone
+    ?"🏅 미션 완료!"
+    :"✅ 절약 실천 완료!";
+}
+
+function completeMission(){
+  if(data.missionDone)return;
+
+  // 입력 내용을 분석해 저장한 후 조건 확인
+  if(!readInputs())return;
+
+  const baseline=data.missionBaseline;
+  const target=Math.max(0,baseline-20000);
+
+  if(baseline<20000){
+    $("inputError").textContent=
+      "기준 배달 지출이 2만 원 미만이라 이 미션을 "+
+      "수행할 수 없습니다. 초기화 후 다시 시작해 주세요.";
+    return;
+  }
+
+  if(data.expenses.delivery>target){
+    $("inputError").textContent=
+      "배달음식 지출을 "+won(target)+
+      " 이하로 수정한 뒤 다시 시도해 주세요.";
+    $("inputError").scrollIntoView({block:"center"});
+    return;
+  }
+
+  data.missionDone=true;
+  data.points+=200;
+  store();
+  renderAll();
+
+  popup(
+    "🦊✨",
+    "절약 미션 성공!",
+    "배달음식 지출 계획을 2만 원 이상 줄였습니다! "+
+    "200포인트를 받고 로엔이 진화했어요. "+
+    "절약 성공 배지도 획득했습니다!"
+  );
+}
+
+// 규칙 기반 금융 질문 응답
+function answerQuestion(question){
+  const q=question.toLowerCase();
+  const spent=totalSpent();
+  const saving=availableSaving();
+
+  if(/순자산|자산|재산/.test(q)){
+    return "📊 현재 예금·현금은 "+won(data.cash)+
+      ", 투자 자산은 "+won(data.investments)+
+      ", 부채는 "+won(data.debt)+"이에요.\n"+
+      "순자산은 "+won(netAssets())+"입니다.";
+  }
+
+  if(/빚|부채|대출|상환/.test(q)){
+    return "🏦 현재 입력한 부채는 "+won(data.debt)+
+      "이에요. 대출의 이자율과 상환 일정을 확인하고 "+
+      "금리가 높은 부채부터 관리하는 방법을 검토해 보세요.";
+  }
+
+  if(/저축|적금|모으|저금/.test(q)){
+    return "💰 월 소득 "+won(data.income)+
+      "에서 월 지출 "+won(spent)+"을 빼면 "+
+      "예상 저축 여력은 "+won(saving)+"이에요.\n"+
+      "비상금을 먼저 마련하고 저축 목표에 맞춰 "+
+      "금액을 나누는 것을 추천해요.";
+  }
+
+  if(/소비|절약|지출|낭비/.test(q)){
+    return "💸 현재 월 지출은 "+won(spent)+"이에요. "+
+      "배달음식, 카페, 쇼핑을 일부 줄이면 "+
+      "월 약 "+won(savingPotential())+
+      "의 추가 저축이 가능할 것으로 추정돼요.";
+  }
+
+  if(/예산|초과/.test(q)){
+    const diff=data.budget-spent;
+
+    return diff>=0
+      ?"📋 현재 월 소비 예산보다 "+won(diff)+
+       " 적게 사용할 계획이에요. "+
+       "지출을 주간 단위로 나누어 관리해 보세요."
+      :"🚨 현재 예산을 "+won(-diff)+
+       " 초과했어요. 선택 지출부터 줄여 보세요.";
+  }
+
+  if(/목표|비상금|달성/.test(q)){
+    return "🎯 현재 목표는 '"+data.goalName+
+      "'이고 목표 금액은 "+won(data.goalAmount)+
+      "이에요.\n"+
+      "현재 기록한 저축액은 "+won(data.saved)+
+      "이며 남은 금액은 "+
+      won(Math.max(0,data.goalAmount-data.saved))+"입니다.";
+  }
+
+  if(/투자|주식|펀드/.test(q)){
+    return "📈 투자는 수익과 손실 가능성이 함께 있어요. "+
+      "목표 기간, 위험 감수 수준, 비상금 확보 여부를 "+
+      "먼저 확인하고 상품의 특징과 수수료를 공부해 보세요.";
+  }
+
+  return "🤖 좋은 질문이에요! 저는 현재 저축, 소비, "+
+    "순자산, 부채, 예산, 금융 목표, 투자 기초에 "+
+    "관한 질문에 답할 수 있어요. "+
+    "이 중 궁금한 주제를 다시 질문해 주세요.";
+}
+
+function addBubble(text,mine){
+  const div=document.createElement("div");
+  div.className="bubble"+(mine?" mine":"");
+  div.textContent=text;
+  $("chat").appendChild(div);
+  $("chat").scrollTop=$("chat").scrollHeight;
+}
+
+function ask(text){
+  addBubble(text,true);
+  addBubble(answerQuestion(text),false);
+}
+
+function sendQuestion(){
+  const text=$("question").value.trim();
+  if(!text)return;
+  $("question").value="";
+  ask(text);
+}
+
+$("question").addEventListener("keydown",event=>{
+  if(event.key==="Enter")sendQuestion();
+});
+
+function popup(emoji,title,message){
+  $("popupEmoji").textContent=emoji;
+  $("popupTitle").textContent=title;
+  $("popupMessage").textContent=message;
+  $("popup").classList.add("show");
+}
+
+function closePopup(){
+  $("popup").classList.remove("show");
+}
+
+$("popup").addEventListener("click",event=>{
+  if(event.target===$("popup"))closePopup();
+});
+
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape")closePopup();
+});
+
+function resetDemo(){
+  if(!confirm(
+    "입력 정보, 저축 기록, 미션을 모두 초기화할까요?"
+  ))return;
+
+  data=freshData();
+  store();
+  loadInputs();
+
+  $("inputError").textContent="";
+  $("savingError").textContent="";
+  $("deposit").value="";
+  $("chat").innerHTML="";
+
+  addBubble(
+    "안녕하세요! 저는 로엔이에요. 🤖 "+
+    "금융 관리에 대해 무엇이든 물어보세요!",false
+  );
+
+  renderAll();
+}
+
+createExpenseInputs();
+loadInputs();
+renderAll();
+</script>
+</body>
+</html>
